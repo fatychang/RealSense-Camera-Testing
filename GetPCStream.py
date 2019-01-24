@@ -142,12 +142,38 @@ try:
         pcl.save(gdRemovedCloud, "gdRemovedCloud.pcd")
 
         
-        
+        #################################
+        #   Outlier removal Filter-     #
+        #  Statistical Outlier Removal  #
+        #################################
+
+        # Create a statistical outlier filter object
+        outlier = gdRemovedCloud.make_statistical_outlier_filter()
+
+        # Set the number of neighboring points to analyze for any given point
+        outlier.set_mean_k(50)
+
+        # Set threshold scale factor
+        outlier_threshold = 1.0
+
+        # Eliminate the points whose mean distance is larger than global
+        # (global dis = mean_dis + threshold * std_dev)               
+        outlier.set_std_dev_mul_thresh(outlier_threshold)
+
+        # Apply the statistical outlier removal filter
+        olRemovedCloud = outlier.filter()
+
+        # Print the size of the ground removed point cloud
+        print("The size of the outlier removed pointcloud: ", olRemovedCloud.size)
+
+        # Save the image for visualization
+        if SAVE_IMAGE:
+            pcl.save(olRemovedCloud, "outlierRemovedCloud.pcd")
         
         
         
         count = count+1
-        print(count)
+        #print(count)
         
         
         
