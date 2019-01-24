@@ -62,6 +62,9 @@ try:
         
         # Create a PCL pointcloud
         oriCloud = pcl.PointCloud(verts)
+        
+        # Print the size of the original point cloud
+        print("The size of the original pointcloud: ", oriCloud.size)
  
         # Create the Voxel Grid Filter Object
         vox = oriCloud.make_voxel_grid_filter()
@@ -73,6 +76,9 @@ try:
 
         # Call the voxel_grid_filter to obtain the downsampled cloud, called VGCloud (voxel_grid cloud)
         vgCloud = vox.filter()  
+        
+        # Print the size of the downsampled point cloud
+        print("The size of the downsampled pointcloud: ", vgCloud.size)  
         
 #        # Save the image for visualization
 #        pcl.save(oriCloud, "oriCloud.pcd")
@@ -97,6 +103,9 @@ try:
         # Call the passthrough filter to obtain the resultant pointcloud
         ptCloud = passthrough.filter()
         
+        # Print the size of the cropped point cloud
+        print("The size of the cropped pointcloud: ", ptCloud.size)
+        
 #        # Save the image for visualization
 #        pcl.save(ptCloud, "passthroughCloud.pcd")
         
@@ -108,7 +117,29 @@ try:
         #   Ground Segmentation (remove)  #
         #          via RANSAC             #
         ###################################
-        
+        # Create the segmentation object
+        seg = ptCloud.make_segmenter()
+
+        # Set the model you wish to fit
+        seg.set_model_type(pcl.SACMODEL_PLANE)
+        seg.set_model_type(pcl.SAC_RANSAC)
+                   
+        # Max distance for the point to be consider fitting this model
+        max_distance = 0.01
+        seg.set_distance_threshold(max_distance)
+
+        # Obtain a set of inlier indices ( who fit the plane) and model coefficients
+        inliers, coefficients = seg.segment()
+
+        # Extract Inliers obtained from previous step
+        gdRemovedCloud = ptCloud.extract(inliers, negative=True)
+
+        # Print the size of the ground removed point cloud
+        print("The size of the ground removed pointcloud: ", gdRemovedCloud.size)
+
+    
+        # Save the image for visualization
+        pcl.save(gdRemovedCloud, "gdRemovedCloud.pcd")
 
         
         
