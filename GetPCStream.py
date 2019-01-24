@@ -79,7 +79,35 @@ try:
 #        pcl.save(vgCloud, "vgCloud.pcd")
         
         
+        ################################
+        #   Apply Passthrough Filter   #
+        #     (crop the image)         #
+        ################################
         
+        # Create a passthrough filter object
+        passthrough = vgCloud.make_passthrough_filter()
+        
+        # Assign axis and range to the passthrough filter()
+        FILTER_AXIS = 'z'
+        passthrough.set_filter_field_name(FILTER_AXIS)
+        AXIS_MIN = 0
+        AXIS_MAX = 0.5
+        passthrough.set_filter_limits(AXIS_MIN, AXIS_MAX)
+        
+        # Call the passthrough filter to obtain the resultant pointcloud
+        ptCloud = passthrough.filter()
+        
+#        # Save the image for visualization
+#        pcl.save(ptCloud, "passthroughCloud.pcd")
+        
+        
+        
+        
+        
+        ###################################
+        #   Ground Segmentation (remove)  #
+        #          via RANSAC             #
+        ###################################
         
 
         
