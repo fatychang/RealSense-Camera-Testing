@@ -25,3 +25,12 @@ However, the point cloud visualization haven't finish.
 * Ground Segmentation: Implements the RANSAC alog. to filter out the target shape (PLANE)
 * Outlier Removal: A statistical outlier filter removes the outlier based on the number of neighbors within a defined boundary.
 * The result of each step can be saved as a indepentent .pcd file for further visualization via the pcl_viewer.exe
+
+# PCL_VIEWER_RELEASE.EXE
+This is a exe file for point cloud visualization.
+How?
+1. Locate the pcl_viewer_release.exe and OpenNI2.dll file (should be under C:\Program Files\PCL x.x.x\bin).
+2. Copy the two files along with the .pcd file to same folder.
+3. Open the terminal and navigate to the file where the files are stored.
+4. Key in the following command:
+  "pcl_viewer_release file_name.pcd"
