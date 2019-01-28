@@ -37,3 +37,19 @@ How?
 3. Open the terminal and navigate to the file where the files are stored.
 4. Key in the following command:
   "pcl_viewer_release file_name.pcd"
+  
+ ## feetTracking_open3d.py
+This script is similar to the feetTracking.py mentioned above. The difference is that we use the open3d instead pcl for point cloud process and visualization. In my opinion, open3d is much easier to use compare to pcl. More importantly, the visualization is much simplier.
+In order to link the realsense camera with the open3d point cloud object, we use the Numpy array to store the points. The following code convert the realsense point cloud data to numpy array which can be further used by open3d. After generate the open3d point cloud, a Voxel downsample filter is then applied to shrink down the point cloud size.
+
+```
+    # Pointcloud data to array
+    v,t = points.get_vertices(), points.get_texture_coordinates()
+    verts = np.asarray(v).view(np.float32).reshape(-1,3) #xyz
+    texcoords = np.asarray(t).view(np.float32).reshape(-1,2) #uv
+```
+```
+    # Generate the open3d point cloud
+    pcd = open3d.PointCloud()
+    pcd.points = open3d.Vector3dVector(verts)
+```
