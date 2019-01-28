@@ -1,7 +1,10 @@
 # RealSense-Camera-Testing
-This project contains the codes to manipulate the Intel RealSense Camera and simple image clustering, segmentation and regonition
+This project contains the codes to manipulate the Intel RealSense Camera and simple image clustering, segmentation and regonition via Python.
+PCL or open3d are the libraries we used to process the point cloud data. 
 
-# Read_Bag_Video.py
+Noted: This is an ongoing project. New features are developing and there are some bugs need to be fixed.
+
+## Read_Bag_Video.py
 The "Read_Bad_Video" allows the program to open a simple window displaying the recorded video ( the video is recorded via the Intel Realsense Viewer). It is modified from the original sample code obtained from (https://github.com/IntelRealSense/librealsense/blob/development/wrappers/python/examples/read_bag_example.py). You may refer to it for more details.
 
 How to Run?
@@ -11,7 +14,7 @@ How to Run?
 4. Press escape key to exit the program.
 
 
-# feetTracking.py
+## feetTracking.py
 The script aims to apply image pre-processing techniques which include downsampling, image cropping, and ground removal.
 The PCL library is implemented to achieve the above function.
 However, the point cloud visualization haven't finish.
@@ -26,7 +29,7 @@ However, the point cloud visualization haven't finish.
 * Outlier Removal: A statistical outlier filter removes the outlier based on the number of neighbors within a defined boundary.
 * The result of each step can be saved as a indepentent .pcd file for further visualization via the pcl_viewer.exe
 
-# PCL_VIEWER_RELEASE.EXE
+## PCL_VIEWER_RELEASE.EXE
 This is a exe file for point cloud visualization.
 How?
 1. Locate the pcl_viewer_release.exe and OpenNI2.dll file (should be under C:\Program Files\PCL x.x.x\bin).
